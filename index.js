@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const readStream = require('./src/streams/actions/readStream.js'),
       msgEmitter = require('./src/emitter/msgEmitter.js'),
       streamName = 'WeatherPackage';
