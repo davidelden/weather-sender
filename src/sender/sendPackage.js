@@ -1,6 +1,8 @@
 const fetchFromAPI = require('../fetch/helpers/fetchFromAPI.js'),
       packageAPIEndpoint = require('../fetch/helpers/packageAPIEndpoint.js'),
-      eventMessages = require('../streams/events/eventMessages.js');
+      writeStream = require('../streams/actions/writeStream.js'),
+      eventMessages = require('../streams/events/eventMessages.js'),
+      streamName = 'WeatherSender';
 
 const sendPackage = async msg => {
   if(!Array.isArray(msg) || msg[0] !== 'WeatherPackageAvailable') return;
@@ -10,14 +12,17 @@ const sendPackage = async msg => {
         weatherPackage = await fetchFromAPI(endPoint);
 
   console.log('[sendPackage]', weatherPackage);
-
-   // Write sender start message to stream
+   writeStream(streamName, eventMessages['start']);
 
    // Send weatherPackage to AWS SNS
-   // On success callback write weather published message to stream
-   // On error callback write error message to stream
 
-   // Write sender end message to stream
+   // On success callback write weather published message to stream
+   // writeStream(streamName, eventMessages['published']);
+
+   // On error callback write error message to stream
+   // writeStream(streamName, eventMessages['error']);
+
+   writeStream(streamName, eventMessages['end']);
 }
 
 module.exports = sendPackage;
