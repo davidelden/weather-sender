@@ -1,5 +1,6 @@
 const fetchFromAPI = require('../fetch/helpers/fetchFromAPI.js'),
-      packageAPIEndpoint = require('../fetch/helpers/packageAPIEndpoint.js');
+      packageAPIEndpoint = require('../fetch/helpers/packageAPIEndpoint.js'),
+      eventMessages = require('../streams/events/eventMessages.js');
 
 const sendPackage = async msg => {
   if(!Array.isArray(msg) || msg[0] !== 'WeatherPackageAvailable') return;
